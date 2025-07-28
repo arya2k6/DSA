@@ -1,0 +1,128 @@
+#include <stdio.h>
+
+#define MAX 100
+
+void traverse(int arr[], int n) {
+    printf("Array elements: ");
+    for (int i = 0; i < n; i++)
+        printf("%d ", arr[i]);
+    printf("\n");
+}
+
+int length(int arr[], int n) {
+    return n;
+}
+
+void search(int arr[], int n, int key) {
+    int found = 0;
+    for (int i = 0; i < n; i++) {
+        if (arr[i] == key) {
+            printf("Element %d found at position %d\n", key, i);
+            found = 1;
+            break;
+        }
+    }
+    if (!found)
+        printf("Element %d not found.\n", key);
+}
+
+void find_largest(int arr[], int n) {
+    int max = arr[0];
+    for (int i = 1; i < n; i++)
+        if (arr[i] > max)
+            max = arr[i];
+    printf("Largest element: %d\n", max);
+}
+
+void find_smallest(int arr[], int n) {
+    int min = arr[0];
+    for (int i = 1; i < n; i++)
+        if (arr[i] < min)
+            min = arr[i];
+    printf("Smallest element: %d\n", min);
+}
+
+int insert(int arr[], int n, int pos, int val) {
+    if (n >= MAX || pos < 0 || pos > n) {
+        printf("Insertion failed. Invalid position or array full.\n");
+        return n;
+    }
+    for (int i = n; i > pos; i--)
+        arr[i] = arr[i - 1];
+    arr[pos] = val;
+    printf("Inserted %d at position %d\n", val, pos);
+    return n + 1;
+}
+
+int delete(int arr[], int n, int pos) {
+    if (pos < 0 || pos >= n) {
+        printf("Deletion failed. Invalid position.\n");
+        return n;
+    }
+    printf("Deleted element %d from position %d\n", arr[pos], pos);
+    for (int i = pos; i < n - 1; i++)
+        arr[i] = arr[i + 1];
+    return n - 1;
+}
+
+void linear_search(int arr[], int n, int key) {
+    int count = 0;
+    for (int i = 0; i < n; i++)
+        if (arr[i] == key) {
+            printf("Element %d found at index %d\n", key, i);
+            count++;
+        }
+    if (count == 0)
+        printf("Element %d not found.\n", key);
+}
+
+int main() {
+    int arr[MAX], n, choice, key, pos, val;
+
+    printf("Enter number of elements (max %d): ", MAX);
+    scanf("%d", &n);
+    printf("Enter elements:\n");
+    for (int i = 0; i < n; i++)
+        scanf("%d", &arr[i]);
+
+    do {
+        printf("\n--- MENU ---\n");
+        printf("1. Traverse\n2. Length\n3. Search (Single)\n4. Find Largest\n5. Find Smallest\n");
+        printf("6. Insert\n7. Delete\n8. Linear Search (All Occurrences)\n9. Exit\n");
+        printf("Enter choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1: traverse(arr, n); break;
+            case 2: printf("Length: %d\n", length(arr, n)); break;
+            case 3:
+                printf("Enter element to search: ");
+                scanf("%d", &key);
+                search(arr, n, key);
+                break;
+            case 4: find_largest(arr, n); break;
+            case 5: find_smallest(arr, n); break;
+            case 6:
+                printf("Enter position to insert (0 to %d): ", n);
+                scanf("%d", &pos);
+                printf("Enter value to insert: ");
+                scanf("%d", &val);
+                n = insert(arr, n, pos, val);
+                break;
+            case 7:
+                printf("Enter position to delete (0 to %d): ", n - 1);
+                scanf("%d", &pos);
+                n = delete(arr, n, pos);
+                break;
+            case 8:
+                printf("Enter element to search: ");
+                scanf("%d", &key);
+                linear_search(arr, n, key);
+                break;
+            case 9: printf("Exiting.\n"); break;
+            default: printf("Invalid choice.\n");
+        }
+    } while (choice != 9);
+
+    return 0;
+}

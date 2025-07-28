@@ -1,0 +1,71 @@
+Problem 6:
+#include <stdio.h>
+
+int main() {
+    int arr[2][3][4];
+
+    printf("Enter elements for 2x3x4 array:\n");
+    for (int i = 0; i < 2; i++) { // layers
+        for (int j = 0; j < 3; j++) { // rows
+            for (int k = 0; k < 4; k++) { // columns
+                printf("arr[%d][%d][%d]: ", i, j, k);
+                scanf("%d", &arr[i][j][k]);
+            }
+        }
+    }
+
+    printf("\nAll elements:\n");
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 3; j++) {
+            for (int k = 0; k < 4; k++) {
+                printf("%d ", arr[i][j][k]);
+            }
+            printf("\n");
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
+
+Problem 7:
+#include <stdio.h>
+
+int main() {
+    int arr[3][3][3];
+    int search;
+
+    printf("Enter elements for 3x3x3 array:\n");
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            for (int k = 0; k < 3; k++) {
+                printf("arr[%d][%d][%d]: ", i, j, k);
+                scanf("%d", &arr[i][j][k]);
+            }
+        }
+    }
+
+    printf("Enter element to search: ");
+    scanf("%d", &search);
+
+    return 0;
+}
+
+Problem 8:
+#include <stdio.h>
+
+int main() {
+    int arr[2][2][2];
+
+    printf("Enter elements for 2x2x2 array:\n");
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 2; j++) {
+            for (int k = 0; k < 2; k++) {
+                printf("arr[%d][%d][%d]: ", i, j, k);
+                scanf("%d", &arr[i][j][k]);
+            }
+        }
+    }
+
+    return 0;
+}

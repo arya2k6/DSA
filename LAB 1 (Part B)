@@ -1,0 +1,82 @@
+a)
+for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+        printf("*");
+    }
+}
+- Outer loop runs n times.
+- Inner loop runs n times per outer iteration.
+- Total operations = n * n = n²
+- Space Complexity: O(1) 
+
+b)
+void func(int n) {
+    if (n == 1)
+        return;
+    func(n/2);
+    func(n/2);
+}
+- Best Case: Ω(1)
+- Worst Case: O(n)
+- Average Case: Θ(n)
+- Each call spawns two recursive calls on n/2.
+- This gives a binary recursion tree.
+- Number of calls a O(n)
+- Space Complexity: O(log n)
+
+c)
+int i = 1;
+while (i < n) {
+    printf("%d ", i);
+    i = i * 2;
+}
+- i doubles each iteration: 1, 2, 4, 8, ..., up to < n
+- Number of iterations = log₂n
+- Time Complexity: O(log n)
+- Space Complexity: O(1)
+
+d)
+for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+        for (int k = 0; k < n; k++) {
+            printf("*");
+        }
+    }
+}
+- Three nested loops, each running n times
+- Total operations: n × n × n = n³
+- Time Complexity: O(n³)
+- Space Complexity: O(1)
+
+e)
+int fib(int n) {
+    if (n <= 1)
+        return n;
+    return fib(n - 1) + fib(n - 2);
+}
+- Exponential recursion: Each call spawns two others.
+- Recurrence: O(n) = O(n-1) + O(n-2)
+- Total calls ≈ 2^n
+- Time Complexity: O(2^n)
+- Space Complexity: O(n)
+
+f)
+printf("Hello World");
+- Just one print statement.
+- Time Complexity: O(1)
+- Space Complexity: O(1)
+
+g)
+for (int i = 0; i < n; i++) {
+    printf("*");
+}
+for (int j = 0; j < n; j++) {
+    for (int k = 0; k < n; k++) {
+        printf("#");
+    }
+}
+- First loop: O(n)
+- Second loop (nested): O(n²)
+- Total: O(n + n²) = O(n²)
+- Time Complexity: O(n²)
+- Space Complexity: O(1)

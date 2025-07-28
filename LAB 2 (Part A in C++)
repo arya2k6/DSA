@@ -1,0 +1,195 @@
+Problem 1:
+#include <iostream>
+using namespace std;
+
+int main() {
+    int m, n;
+    cout << "Enter number of rows and columns: ";
+    cin >> m >> n;
+
+    int A[m][n], B[m][n], C[m][n];
+
+    cout << "Enter elements of Matrix A:\n";
+    for (int i = 0; i < m; ++i)
+        for (int j = 0; j < n; ++j)
+            cin >> A[i][j];
+
+    cout << "Enter elements of Matrix B:\n";
+    for (int i = 0; i < m; ++i)
+        for (int j = 0; j < n; ++j)
+            cin >> B[i][j];
+
+    cout << "Sum Matrix (C = A + B):\n";
+    for (int i = 0; i < m; ++i) {
+        for (int j = 0; j < n; ++j) {
+            C[i][j] = A[i][j] + B[i][j];
+            cout << C[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
+
+Problem 2:
+#include <iostream>
+using namespace std;
+
+int main() {
+    int m, p, n;
+    cout << "Enter rows of A, columns of A / rows of B, columns of B: ";
+    cin >> m >> p >> n;
+
+    int A[m][p], B[p][n], C[m][n] = {0};
+
+    cout << "Enter elements of Matrix A:\n";
+    for (int i = 0; i < m; ++i)
+        for (int j = 0; j < p; ++j)
+            cin >> A[i][j];
+
+    cout << "Enter elements of Matrix B:\n";
+    for (int i = 0; i < p; ++i)
+        for (int j = 0; j < n; ++j)
+            cin >> B[i][j];
+
+    // Matrix multiplication
+    for (int i = 0; i < m; ++i)
+        for (int j = 0; j < n; ++j)
+            for (int k = 0; k < p; ++k)
+                C[i][j] += A[i][k] * B[k][j];
+
+    cout << "Resultant Matrix C = A × B:\n";
+    for (int i = 0; i < m; ++i) {
+        for (int j = 0; j < n; ++j)
+            cout << C[i][j] << " ";
+        cout << endl;
+    }
+
+    return 0;
+}
+
+
+Problem 3:
+#include <iostream>
+using namespace std;
+
+const int MAX = 10;
+
+// Function to get cofactor of mat[p][q] in temp[][]
+void getCofactor(int mat[MAX][MAX], int temp[MAX][MAX], int p, int q, int n) {
+    int i = 0, j = 0;
+
+    for (int row = 0; row < n; row++) {
+        for (int col = 0; col < n; col++) {
+            if (row != p && col != q) {
+                temp[i][j++] = mat[row][col];
+                if (j == n - 1) {
+                    j = 0;
+                    i++;
+                }
+            }
+        }
+    }
+}
+
+// Recursive function to find determinant of matrix
+int determinantOfMatrix(int mat[MAX][MAX], int n) {
+    int D = 0;
+
+    // Base case
+    if (n == 1)
+        return mat[0][0];
+
+    int temp[MAX][MAX];
+    int sign = 1;
+
+    for (int f = 0; f < n; f++) {
+        getCofactor(mat, temp, 0, f, n);
+        D += sign * mat[0][f] * determinantOfMatrix(temp, n - 1);
+        sign = -sign;
+    }
+
+    return D;
+}
+
+int main() {
+    int n;
+    cout << "Enter the order of square matrix (n x n): ";
+    cin >> n;
+
+    if (n > MAX || n <= 0) {
+        cout << "Matrix size out of supported range (1 to " << MAX << ").";
+        return 1;
+    }
+
+    int mat[MAX][MAX];
+    cout << "Enter elements of the matrix:\n";
+    for (int i = 0; i < n; ++i)
+        for (int j = 0; j < n; ++j)
+            cin >> mat[i][j];
+
+    int det = determinantOfMatrix(mat, n);
+    cout << "Determinant of the matrix is: " << det << endl;
+
+    return 0;
+}
+
+
+Problem 5:
+// C++ program to illustrate Saddle point
+#include <bits/stdc++.h>
+using namespace std;
+
+const int MAX = 100;
+
+// Function to find saddle point
+bool findSaddlePoint(int mat[MAX][MAX], int n)
+{
+    // Process all rows one by one
+    for (int i = 0; i < n; i++)
+    {
+        // Find the minimum element of row i.
+        // Also find column index of the minimum element
+        int min_row = mat[i][0], col_ind = 0;
+        for (int j = 1; j < n; j++)
+        {
+            if (min_row > mat[i][j])
+            {
+                min_row = mat[i][j];
+                col_ind = j;
+            }
+        }
+
+        // Check if the minimum element of row is also
+        // the maximum element of column or not
+        int k;
+        for (k = 0; k < n; k++)
+
+            // Note that col_ind is fixed
+            if (min_row < mat[k][col_ind])
+                break;
+
+        // If saddle point is present in this row then
+        // print it
+        if (k == n)
+        {
+           cout << "Value of Saddle Point " << min_row;
+           return true;
+        }
+    }
+
+    // If Saddle Point not found
+    return false;
+}
+
+// Driver code
+int main()
+{
+    int mat[MAX][MAX] = {{1, 2, 3},
+                        {4, 5, 6},
+                        {7, 8, 9}};
+    int n = 3;
+    if (findSaddlePoint(mat, n) == false)
+       cout << "No Saddle Point ";
+    return 0;
+}

@@ -1,0 +1,65 @@
+#include <iostream>
+using namespace std;
+
+void traverse(int arr[], int n) {
+    cout << "Array: ";
+    for (int i = 0; i < n; i++) cout << arr[i] << " ";
+    cout << endl;
+}
+
+int findLength(int arr[]) {
+    return sizeof(arr) / sizeof(arr[0]); // works only if array is not passed as pointer
+}
+
+void searchElement(int arr[], int n, int key) {
+    for (int i = 0; i < n; i++) {
+        if (arr[i] == key) {
+            cout << "Element found at index " << i << endl;
+            return;
+        }
+    }
+    cout << "Element not found" << endl;
+}
+
+void findLargest(int arr[], int n) {
+    int max = arr[0];
+    for (int i = 1; i < n; i++)
+        if (arr[i] > max) max = arr[i];
+    cout << "Largest: " << max << endl;
+}
+
+void findSmallest(int arr[], int n) {
+    int min = arr[0];
+    for (int i = 1; i < n; i++)
+        if (arr[i] < min) min = arr[i];
+    cout << "Smallest: " << min << endl;
+}
+
+void insertElement(int arr[], int &n, int pos, int val) {
+    for (int i = n; i > pos; i--)
+        arr[i] = arr[i - 1];
+    arr[pos] = val;
+    n++;
+}
+
+void deleteElement(int arr[], int &n, int pos) {
+    for (int i = pos; i < n - 1; i++)
+        arr[i] = arr[i + 1];
+    n--;
+}
+
+void linearSearch(int arr[], int n, int key) {
+    searchElement(arr, n, key);
+}
+
+int main() {
+    int arr[100] = {5, 3, 8, 6, 2};
+    int n = 5;
+
+    traverse(arr, n);
+    findLargest(arr, n);
+    findSmallest(arr, n);
+    insertElement(arr, n, 2, 10); traverse(arr, n);
+    deleteElement(arr, n, 3); traverse(arr, n);
+    linearSearch(arr, n, 6);
+}
